@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Haven | Your Safe Haven Between the Pages</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#1a1a2e;
+    --secondary:#16213e;
+    --accent:#e94560;
+    --gold:#d4af37;
+    --cream:#faf9f6;
+    --dark:#0f0f1e;
+    --text:#2d2d44;
+    --gray:#6b7280;
+    --light-gray:#f3f4f6;
+    --shadow:0 10px 40px rgba(0,0,0,.12);
+    --shadow-lg:0 20px 60px rgba(233,69,96,.2);
+    --gradient:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+    --gradient-accent:linear-gradient(135deg,#e94560 0%,#d4af37 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;color:var(--text);
+    background:var(--cream);line-height:1.7;overflow-x:hidden
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display',serif}
+  a{text-decoration:none;color:inherit}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  img{max-width:100%;display:block}
+  .container{max-width:1280px;margin:0 auto;padding:0 24px}
+
+  /* ====== Header ====== */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,.98);backdrop-filter:blur(20px);
+    box-shadow:0 2px 20px rgba(0,0,0,.05);
+    border-bottom:3px solid var(--accent)
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+  .logo{display:flex;flex-direction:column;cursor:pointer}
+  .logo-top{display:flex;align-items:center;gap:12px}
+  .logo-icon{
+    width:50px;height:50px;border-radius:14px;
+    background:var(--gradient);
+    display:grid;place-items:center;color:var(--gold);font-size:1.5rem;
+    box-shadow:0 8px 24px rgba(26,26,46,.3)
+  }
+  .logo-text{
+    font-family:'Playfair Display',serif;font-weight:900;font-size:1.6rem;
+    background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+  }
+  .logo-tagline{
+    font-size:.75rem;color:var(--gray);font-style:italic;
+    margin-top:2px;margin-right:62px;letter-spacing:.5px
+  }
+  .menu{display:flex;gap:32px;list-style:none}
+  .menu a{font-weight:600;position:relative;transition:.3s;padding:6px 0;cursor:pointer}
+  .menu a::after{
+    content:"";position:absolute;bottom:0;right:0;width:0;height:3px;
+    background:var(--gradient-accent);transition:.3s;border-radius:2px
+  }
+  .menu a:hover,.menu a.active{color:var(--accent)}
+  .menu a:hover::after,.menu a.active::after{width:100%}
+  .nav-actions{display:flex;gap:10px;align-items:center}
+  .icon-btn{
+    width:44px;height:44px;border-radius:50%;border:2px solid #eee;
+    background:#fff;display:grid;place-items:center;
+    transition:.3s;position:relative;font-size:1.1rem
+  }
+  .icon-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-3px)}
+  .badge{
+    position:absolute;top:-6px;left:-6px;background:var(--accent);color:#fff;
+    width:22px;height:22px;border-radius:50%;font-size:.7rem;font-weight:800;
+    display:grid;place-items:center;border:2px solid #fff
+  }
+  .burger{display:none}
+
+  /* ====== Pages ====== */
+  .page{display:none;animation:fadeIn .5s}
+  .page.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* ====== Hero ====== */
+  .hero{
+    padding:100px 0 80px;position:relative;overflow:hidden;
+    background:var(--gradient);color:#fff
+  }
+  .hero::before{
+    content:"";position:absolute;top:-50%;right:-20%;width:800px;height:800px;
+    background:radial-gradient(circle,rgba(233,69,96,.15),transparent 70%);
+    animation:float 20s ease-in-out infinite
+  }
+  .hero::after{
+    content:"";position:absolute;bottom:-50%;left:-20%;width:800px;height:800px;
+    background:radial-gradient(circle,rgba(212,175,55,.15),transparent 70%);
+    animation:float 25s ease-in-out infinite reverse
+  }
+  @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-30px)}}
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+    padding:10px 20px;border-radius:999px;font-size:.9rem;font-weight:600;
+    margin-bottom:24px;border:1px solid rgba(255,255,255,.2)
+  }
+  .hero h1{
+    font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.2;font-weight:900;margin-bottom:20px
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+  }
+  .hero-tagline{
+    font-size:1.1rem;font-style:italic;color:var(--gold);margin-bottom:16px;font-weight:500
+  }
+  .hero p{font-size:1.15rem;margin-bottom:36px;opacity:.9;max-width:540px;line-height:1.9}
+  .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{
+    padding:16px 36px;border-radius:999px;font-weight:700;font-size:1.05rem;
+    transition:.4s;display:inline-flex;align-items:center;gap:10px
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 24px rgba(233,69,96,.4)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(233,69,96,.5)}
+  .btn-outline{background:transparent;color:#fff;border:2px solid #fff}
+  .btn-outline:hover{background:#fff;color:var(--primary)}
+  .btn-dark{background:var(--primary);color:#fff}
+  .btn-dark:hover{background:var(--accent);transform:translateY(-3px)}
+  .hero-stats{display:flex;gap:40px;margin-top:50px}
+  .stat b{display:block;font-size:2.2rem;font-weight:900;color:var(--gold);margin-bottom:4px;font-family:'Playfair Display',serif}
+  .stat span{font-size:.9rem;opacity:.8}
+
+  .hero-visual{position:relative;height:520px}
+  .float-book{
+    position:absolute;border-radius:12px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.4);
+    animation:floatBook 6s ease-in-out infinite
+  }
+  .float-book img{width:100%;height:100%;object-fit:cover}
+  .float-book:nth-child(1){width:200px;height:280px;top:10%;right:15%;animation-delay:0s}
+  .float-book:nth-child(2){width:180px;height:250px;bottom:15%;right:25%;animation-delay:1s}
+  .float-book:nth-child(3){width:170px;height:240px;top:30%;left:10%;animation-delay:2s}
+  @keyframes floatBook{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-20px) rotate(5deg)}}
+
+  /* ====== Sections ====== */
+  section{padding:90px 0}
+  .section-head{text-align:center;margin-bottom:60px}
+  .section-badge{
+    display:inline-block;background:var(--gradient-accent);color:#fff;
+    font-weight:700;font-size:.9rem;padding:8px 20px;border-radius:999px;margin-bottom:16px;
+    box-shadow:0 6px 20px rgba(233,69,96,.3)
+  }
+  .section-head h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:12px}
+  .section-head h2 em{font-style:normal;color:var(--accent)}
+  .section-head p{color:var(--gray);max-width:600px;margin:0 auto;font-size:1.05rem}
+
+  /* ====== Filter Tabs ====== */
+  .filter-tabs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:50px}
+  .filter-tab{
+    padding:12px 28px;border-radius:999px;border:2px solid #ddd;
+    background:#fff;font-weight:600;transition:.3s;font-size:.95rem
+  }
+  .filter-tab:hover{border-color:var(--accent);color:var(--accent)}
+  .filter-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* ====== Books Grid ====== */
+  .books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:30px}
+  .book-card{
+    background:#fff;border-radius:20px;overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);transition:.4s;cursor:pointer
+  }
+  .book-card:hover{transform:translateY(-10px);box-shadow:0 20px 50px rgba(233,69,96,.2)}
+  .book-cover{
+    height:340px;position:relative;overflow:hidden;background:#eee
+  }
+  .book-cover img{width:100%;height:100%;object-fit:cover;transition:.5s}
+  .book-card:hover .book-cover img{transform:scale(1.08)}
+  .book-cover::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.5))
+  }
+  .book-badge{
+    position:absolute;top:14px;right:14px;
+    background:var(--accent);color:#fff;
+    padding:6px 14px;border-radius:999px;font-size:.75rem;font-weight:700;
+    z-index:2;box-shadow:0 4px 12px rgba(233,69,96,.4)
+  }
+  .book-badge.pdf{background:var(--gold);color:var(--primary)}
+  .quick-view{
+    position:absolute;bottom:14px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#fff;color:var(--primary);padding:10px 20px;border-radius:999px;
+    font-weight:700;font-size:.85rem;opacity:0;transition:.3s;z-index:2
+  }
+  .book-card:hover .quick-view{opacity:1;transform:translateX(-50%) translateY(0)}
+  .book-info{padding:22px}
+  .book-title{font-size:1.15rem;font-weight:800;margin-bottom:6px;line-height:1.4;font-family:'Playfair Display',serif}
+  .book-author{color:var(--gray);font-size:.88rem;margin-bottom:12px}
+  .book-type{
+    display:inline-block;background:var(--light-gray);color:var(--gray);
+    padding:5px 12px;border-radius:6px;font-size:.78rem;font-weight:600;margin-bottom:14px
+  }
+  .book-actions{display:flex;gap:10px;align-items:center;justify-content:space-between}
+  .book-price{font-size:1.3rem;font-weight:900;color:var(--accent)}
+  .book-price small{color:var(--gray);font-size:.75rem;font-weight:400;margin-right:4px}
+  .add-cart{
+    background:var(--gradient);color:#fff;padding:10px 18px;border-radius:999px;
+    font-weight:700;transition:.3s;font-size:.85rem
+  }
+  .add-cart:hover{transform:scale(1.05);box-shadow:var(--shadow)}
+  .heart-btn{
+    width:38px;height:38px;border-radius:50%;border:2px solid #eee;
+    background:#fff;display:grid;place-items:center;transition:.3s;font-size:1rem
+  }
+  .heart-btn:hover,.heart-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* ====== Features ====== */
+  .features{background:var(--gradient);padding:80px 0;margin:60px 0;border-radius:30px}
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px}
+  .feat{text-align:center;color:#fff}
+  .feat-icon{
+    width:80px;height:80px;margin:0 auto 20px;border-radius:50%;
+    background:var(--gradient-accent);display:grid;place-items:center;font-size:2rem;
+    box-shadow:0 10px 30px rgba(233,69,96,.4)
+  }
+  .feat h3{font-size:1.3rem;margin-bottom:10px;font-weight:800}
+  .feat p{opacity:.85;font-size:.95rem}
+
+  /* ====== Modal ====== */
+  .modal{
+    display:none;position:fixed;inset:0;z-index:2000;
+    background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
+    align-items:center;justify-content:center;padding:20px;
+    animation:fadeIn .3s
+  }
+  .modal.active{display:flex}
+  .modal-content{
+    background:#fff;border-radius:24px;max-width:540px;width:100%;
+    max-height:90vh;overflow-y:auto;position:relative;
+    animation:slideUp .4s
+  }
+  .modal-content.wide{max-width:900px}
+  @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+  .modal-header{
+    padding:24px 30px;border-bottom:1px solid #eee;
+    display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1
+  }
+  .modal-header h3{font-size:1.4rem;font-weight:800}
+  .modal-close{
+    width:36px;height:36px;border-radius:50%;background:var(--light-gray);
+    display:grid;place-items:center;font-size:1.2rem;transition:.3s
+  }
+  .modal-close:hover{background:var(--accent);color:#fff}
+  .modal-body{padding:30px}
+
+  /* ====== Cart & Wishlist Items ====== */
+  .cart-item{
+    display:flex;gap:16px;padding:16px;border:1px solid #eee;border-radius:14px;margin-bottom:12px;align-items:center
+  }
+  .cart-item img{width:70px;height:90px;object-fit:cover;border-radius:8px}
+  .cart-item-info{flex:1}
+  .cart-item-info h4{font-size:1rem;margin-bottom:4px;font-family:'Playfair Display',serif}
+  .cart-item-info p{font-size:.85rem;color:var(--gray);margin-bottom:6px}
+  .cart-item-info b{color:var(--accent)}
+  .remove-btn{
+    width:32px;height:32px;border-radius:50%;background:#fee;color:var(--accent);
+    display:grid;place-items:center;transition:.3s
+  }
+  .remove-btn:hover{background:var(--accent);color:#fff}
+  .cart-total{
+    padding:20px;background:var(--light-gray);border-radius:14px;margin-top:20px;
+    display:flex;justify-content:space-between;align-items:center;font-size:1.1rem;font-weight:700
+  }
+  .cart-total span{color:var(--accent);font-size:1.4rem}
+  .empty-state{text-align:center;padding:40px 20px;color:var(--gray)}
+  .empty-state .icon{font-size:4rem;margin-bottom:16px;opacity:.3}
+
+  /* ====== Book Details ====== */
+  .book-details{display:grid;grid-template-columns:1fr 1.5fr;gap:30px}
+  .book-details-img{border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .book-details-img img{width:100%;height:100%;object-fit:cover;min-height:400px}
+  .book-details-info h2{font-size:1.8rem;margin-bottom:10px}
+  .book-details-info .author{color:var(--gray);margin-bottom:14px;font-size:1rem}
+  .book-details-info .type-badge{
+    display:inline-block;background:var(--light-gray);color:var(--text);
+    padding:6px 14px;border-radius:8px;font-size:.85rem;font-weight:600;margin-bottom:16px
+  }
+  .book-details-info .desc{color:var(--text);line-height:1.9;margin-bottom:20px}
+  .book-details-info .price-big{font-size:2rem;font-weight:900;color:var(--accent);margin-bottom:20px}
+  .format-options{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+  .format-opt{
+    padding:12px 20px;border:2px solid #ddd;border-radius:12px;
+    font-weight:600;transition:.3s;cursor:pointer;background:#fff
+  }
+  .format-opt:hover{border-color:var(--accent)}
+  .format-opt.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .format-opt small{display:block;font-size:.75rem;opacity:.7;font-weight:400;margin-top:2px}
+
+  /* ====== Forms ====== */
+  .form-group{margin-bottom:18px}
+  .form-group label{display:block;margin-bottom:8px;font-weight:600;font-size:.9rem}
+  .form-group input{
+    width:100%;padding:14px 18px;border:2px solid #eee;border-radius:12px;
+    font-family:inherit;font-size:1rem;transition:.3s
+  }
+  .form-group input:focus{outline:none;border-color:var(--accent)}
+  .form-btn{
+    width:100%;padding:16px;background:var(--gradient);color:#fff;
+    border-radius:12px;font-weight:700;font-size:1.05rem;transition:.3s;margin-top:10px
+  }
+  .form-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .form-switch{text-align:center;margin-top:20px;color:var(--gray);font-size:.9rem}
+  .form-switch a{color:var(--accent);font-weight:700;cursor:pointer}
+  .tabs{display:flex;gap:10px;margin-bottom:24px}
+  .tab-btn{
+    flex:1;padding:12px;border-radius:12px;background:var(--light-gray);
+    font-weight:700;transition:.3s
+  }
+  .tab-btn.active{background:var(--accent);color:#fff}
+
+  /* ====== Checkout ====== */
+  .checkout-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:40px}
+  .checkout-section{background:#fff;padding:30px;border-radius:20px;box-shadow:var(--shadow);margin-bottom:20px}
+  .checkout-section h3{font-size:1.3rem;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--light-gray)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .payment-methods{display:flex;flex-direction:column;gap:10px}
+  .payment-opt{
+    padding:16px;border:2px solid #eee;border-radius:12px;
+    display:flex;align-items:center;gap:14px;cursor:pointer;transition:.3s
+  }
+  .payment-opt:hover{border-color:var(--accent)}
+  .payment-opt.active{border-color:var(--accent);background:#fef2f4}
+  .payment-opt .icon{font-size:1.5rem}
+  .order-summary{
+    background:#fff;padding:30px;border-radius:20px;box-shadow:var(--shadow);
+    position:sticky;top:100px
+  }
+  .order-summary h3{font-size:1.3rem;margin-bottom:20px}
+  .summary-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;font-size:.95rem}
+  .summary-total{display:flex;justify-content:space-between;padding:16px 0;font-size:1.3rem;font-weight:900;color:var(--accent);border-top:2px solid var(--primary);margin-top:10px}
+
+  /* ====== Search ====== */
+  .search-box{padding:30px}
+  .search-input{
+    width:100%;padding:16px 24px;border:2px solid #eee;border-radius:999px;
+    font-family:inherit;font-size:1.05rem;margin-bottom:20px
+  }
+  .search-input:focus{outline:none;border-color:var(--accent)}
+  .search-results{max-height:400px;overflow-y:auto}
+  .search-result{
+    display:flex;gap:14px;padding:12px;border-radius:12px;cursor:pointer;transition:.3s;align-items:center
+  }
+  .search-result:hover{background:var(--light-gray)}
+  .search-result img{width:50px;height:70px;object-fit:cover;border-radius:6px}
+  .search-result h4{font-size:.95rem;margin-bottom:4px;font-family:'Playfair Display',serif}
+  .search-result p{font-size:.8rem;color:var(--gray)}
+
+  /* ====== Footer ====== */
+  footer{background:var(--dark);color:#fff;padding:70px 0 30px;margin-top:80px}
+  .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:50px;margin-bottom:50px}
+  .foot-col h4{font-size:1.2rem;margin-bottom:20px;color:var(--gold);font-weight:800}
+  .foot-col ul{list-style:none}
+  .foot-col li{padding:8px 0;color:rgba(255,255,255,.7);font-size:.95rem;cursor:pointer;transition:.3s}
+  .foot-col li:hover{color:var(--gold);padding-left:8px}
+  .foot-col p{color:rgba(255,255,255,.7);font-size:.95rem;margin-bottom:20px;line-height:1.8}
+  .socials{display:flex;gap:12px;margin-top:20px}
+  .socials a{
+    width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);
+    display:grid;place-items:center;transition:.3s;font-size:1.1rem
+  }
+  .socials a:hover{background:var(--accent);transform:translateY(-4px)}
+  .copy{
+    border-top:1px solid rgba(255,255,255,.1);padding-top:24px;text-align:center;
+    color:rgba(255,255,255,.5);font-size:.9rem
+  }
+
+  /* ====== Toast ====== */
+  .toast{
+    position:fixed;bottom:30px;right:30px;z-index:3000;
+    background:var(--primary);color:#fff;padding:16px 24px;border-radius:12px;
+    box-shadow:var(--shadow-lg);transform:translateX(400px);transition:.4s;
+    display:flex;align-items:center;gap:12px;font-weight:600
+  }
+  .toast.show{transform:translateX(0)}
+  .toast.success{background:#10b981}
+  .toast.error{background:var(--accent)}
+
+  /* ====== Responsive ====== */
+  @media(max-width:968px){
+    .menu{display:none}
+    .burger{display:grid}
+    .hero-grid,.checkout-grid,.book-details{grid-template-columns:1fr}
+    .hero-visual{height:400px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .logo-tagline{margin-right:0;margin-top:4px}
+  }
+  @media(max-width:640px){
+    .foot-grid{grid-template-columns:1fr}
+    .features{padding:50px 20px}
+    .hero{padding:60px 0 50px}
+    section{padding:60px 0}
+    .hero-stats{flex-wrap:wrap;gap:24px}
+    .form-row{grid-template-columns:1fr}
+    .modal-body{padding:20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ Header ============ -->
+<header>
+  <div class="container nav">
+    <div class="logo" onclick="showPage('home')">
+      <div class="logo-top">
+        <div class="logo-icon">📚</div>
+        <span class="logo-text">Book Haven</span>
+      </div>
+      <span class="logo-tagline"></span>
+    </div>
+    <ul class="menu">
+      <li><a class="nav-link active" data-page="home">Home</a></li>
+      <li><a class="nav-link" data-page="books">Books</a></li>
+      <li><a class="nav-link" data-page="checkout">Checkout</a></li>
+      <li><a onclick="openModal('authModal')">Account</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openModal('searchModal')" title="Search">🔍</button>
+      <button class="icon-btn" onclick="openModal('wishlistModal')" title="Wishlist">♡<span class="badge" id="wishCount">0</span></button>
+      <button class="icon-btn" onclick="openModal('cartModal')" title="Cart">🛒<span class="badge" id="cartCount">0</span></button>
+      <button class="icon-btn burger" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HOME PAGE ============ -->
+<div class="page active" id="home">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">✨ Welcome to Book Haven</div>
+        <h1>Discover Your Next <em>Favorite Read</em></h1>
+        <p class="hero-tagline">"Your safe haven between the pages"</p>
+        <p>Explore our curated collection of religious books, thrilling novels, historical fiction, and intellectual masterpieces. We deliver the best right to your doorstep.</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" onclick="showPage('books')">Shop Now →</button>
+          <button class="btn btn-outline" onclick="showPage('books');setTimeout(()=>document.querySelector('[data-filter=religious]').click(),300)">Explore Categories</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>13+</b><span>Curated Books</span></div>
+          <div class="stat"><b>4</b><span>Categories</span></div>
+          <div class="stat"><b>24/7</b><span>Customer Support</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="float-book"><img src="image.png" alt=""></div>
+        <div class="float-book"><img src="wwwwww.jpg" alt=""></div>
+        <div class="float-book"><img src="eeeee.jpg" alt=""></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">⭐ Featured Books</span>
+        <h2>Our <em>Best Sellers</em></h2>
+        <p>Handpicked titles loved by our readers</p>
+      </div>
+      <div class="books-grid" id="featuredGrid"></div>
+      <div style="text-align:center;margin-top:50px">
+        <button class="btn btn-dark" onclick="showPage('books')">View All Books →</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="features">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-icon">🚚</div><h3>Fast Shipping</h3><p>Delivery within 24-48 hours</p></div>
+          <div class="feat"><div class="feat-icon">💳</div><h3>Secure Payment</h3><p>Multiple encrypted options</p></div>
+          <div class="feat"><div class="feat-icon">📄</div><h3>PDF Option</h3><p>Digital copies available</p></div>
+          <div class="feat"><div class="feat-icon">💬</div><h3>24/7 Support</h3><p>Always here to help</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ BOOKS PAGE ============ -->
+<div class="page" id="books">
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">📚 Our Library</span>
+        <h2>Browse <em>All Books</em></h2>
+        <p>Filter by category to find your perfect read</p>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="religious">Religious & Self-Dev</button>
+        <button class="filter-tab" data-filter="novels">Novels & Thriller</button>
+        <button class="filter-tab" data-filter="historical">Historical & Fantasy</button>
+        <button class="filter-tab" data-filter="intellectual">Intellectual</button>
+      </div>
+      <div class="books-grid" id="allBooksGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CHECKOUT PAGE ============ -->
+<div class="page" id="checkout">
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">🛍️ Checkout</span>
+        <h2>Complete Your <em>Order</em></h2>
+      </div>
+      <div class="checkout-grid">
+        <div>
+          <div class="checkout-section">
+            <h3>📍 Shipping Information</h3>
+            <div class="form-row">
+              <div class="form-group"><label>First Name</label><input type="text" placeholder="Sara"></div>
+              <div class="form-group"><label>Last Name</label><input type="text" placeholder="Najim"></div>
+            </div>
+            <div class="form-group"><label>Email</label><input type="email" placeholder="sara@example.com"></div>
+            <div class="form-group"><label>Phone</label><input type="tel" placeholder="+966 5X XXX XXXX"></div>
+            <div class="form-group"><label>Address</label><input type="text" placeholder="Street address"></div>
+            <div class="form-row">
+              <div class="form-group"><label>City</label><input type="text" placeholder="Riyadh"></div>
+              <div class="form-group"><label>Postal Code</label><input type="text" placeholder="12345"></div>
+            </div>
+          </div>
+          <div class="checkout-section">
+            <h3>💳 Payment Method</h3>
+            <div class="payment-methods">
+              <div class="payment-opt active" onclick="selectPayment(this)">
+                <span class="icon">💳</span>
+                <div><b>Credit / Debit Card</b><p style="font-size:.85rem;color:var(--gray);margin:0">Visa, Mastercard, Mada</p></div>
+              </div>
+              <div class="payment-opt" onclick="selectPayment(this)">
+                <span class="icon">📱</span>
+                <div><b>Apple Pay / STC Pay</b><p style="font-size:.85rem;color:var(--gray);margin:0">Quick digital payment</p></div>
+              </div>
+              <div class="payment-opt" onclick="selectPayment(this)">
+                <span class="icon">🏦</span>
+                <div><b>Bank Transfer</b><p style="font-size:.85rem;color:var(--gray);margin:0">Direct bank transfer</p></div>
+              </div>
+              <div class="payment-opt" onclick="selectPayment(this)">
+                <span class="icon">💵</span>
+                <div><b>Cash on Delivery</b><p style="font-size:.85rem;color:var(--gray);margin:0">Pay when you receive</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="order-summary">
+            <h3>📋 Order Summary</h3>
+            <div id="checkoutItems"></div>
+            <div class="summary-item"><span>Subtotal</span><span id="subTotal">0 SAR</span></div>
+            <div class="summary-item"><span>Shipping</span><span>25 SAR</span></div>
+            <div class="summary-item"><span>Tax (15%)</span><span id="taxAmount">0 SAR</span></div>
+            <div class="summary-total"><span>Total</span><span id="grandTotal">0 SAR</span></div>
+            <button class="form-btn" onclick="placeOrder()">Place Order →</button>
+            <p style="text-align:center;margin-top:14px;font-size:.85rem;color:var(--gray)">🔒 Secure checkout</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CART MODAL ============ -->
+<div class="modal" id="cartModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>🛒 Your Cart</h3>
+      <button class="modal-close" onclick="closeModal('cartModal')">✕</button>
+    </div>
+    <div class="modal-body" id="cartBody"></div>
+  </div>
+</div>
+
+<!-- ============ WISHLIST MODAL ============ -->
+<div class="modal" id="wishlistModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>♡ Your Wishlist</h3>
+      <button class="modal-close" onclick="closeModal('wishlistModal')">✕</button>
+    </div>
+    <div class="modal-body" id="wishlistBody"></div>
+  </div>
+</div>
+
+<!-- ============ SEARCH MODAL ============ -->
+<div class="modal" id="searchModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>🔍 Search Books</h3>
+      <button class="modal-close" onclick="closeModal('searchModal')">✕</button>
+    </div>
+    <div class="search-box">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search by title or author..." oninput="searchBooks()">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BOOK DETAILS MODAL ============ -->
+<div class="modal" id="bookModal">
+  <div class="modal-content wide">
+    <div class="modal-header">
+      <h3>📖 Book Details</h3>
+      <button class="modal-close" onclick="closeModal('bookModal')">✕</button>
+    </div>
+    <div class="modal-body" id="bookDetailsBody"></div>
+  </div>
+</div>
+
+<!-- ============ AUTH MODAL ============ -->
+<div class="modal" id="authModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>👤 My Account</h3>
+      <button class="modal-close" onclick="closeModal('authModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+        <button class="tab-btn" onclick="switchTab('register')">Register</button>
+      </div>
+      <div id="loginForm">
+        <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••"></div>
+        <button class="form-btn" onclick="handleLogin()">Login →</button>
+        <p class="form-switch">Don't have an account? <a onclick="switchTab('register')">Register now</a></p>
+      </div>
+      <div id="registerForm" style="display:none">
+        <div class="form-group"><label>Full Name</label><input type="text" placeholder="Sara Najim"></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••"></div>
+        <div class="form-group"><label>Confirm Password</label><input type="password" placeholder="••••••••"></div>
+        <button class="form-btn" onclick="handleRegister()">Create Account →</button>
+        <p class="form-switch">Already have an account? <a onclick="switchTab('login')">Login</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Toast ============ -->
+<div class="toast" id="toast"></div>
+
+<!-- ============ Footer ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="logo" style="margin-bottom:20px">
+          <div class="logo-top">
+            <div class="logo-icon">📚</div>
+            <span style="color:#fff;font-family:'Playfair Display',serif;font-weight:900;font-size:1.5rem">Book Haven</span>
+          </div>
+          <span style="color:var(--gold);font-style:italic;font-size:.85rem;margin-top:4px">Your safe haven between the pages</span>
+        </div>
+        <p>Your premier destination for curated books. We bring you the best in religious, novels, and intellectual reads.</p>
+        <div class="socials">
+          <a>📷</a><a>🐦</a><a>🎵</a><a>💬</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Quick Links</h4>
+        <ul><li>Home</li><li>Books</li><li>Categories</li><li>Offers</li><li>Blog</li></ul>
+      </div>
+      <div class="foot-col">
+        <h4>Customer Service</h4>
+        <ul><li>Contact Us</li><li>Shipping Policy</li><li>Returns</li><li>FAQ</li><li>Track Order</li></ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <ul><li>📞 920000000</li><li>✉️ hello@malath.com</li><li>📍 Riyadh, KSA</li><li>🕐 24/7 Support</li></ul>
+      </div>
+    </div>
+    <div class="copy">© 2026 Book Haven - All rights reserved 💛</div>
+  </div>
+</footer>
+
+<script>
+// ============ Books Data ============
+const books = [
+  // Religious & Self-Development
+  {id:1,title:"Inn Rabbi Lateef",author:"Abdulrahman Masad",type:"Religious / Self-Dev",category:"religious",price:55,badge:"Religious",img:"ان ربي لطيف .jpeg",desc:"A beautiful reminder of Allah's gentle care in every detail of life. This book touches the heart and brings peace to the soul through inspiring stories and reflections."},
+  {id:2,title:"La Tahzan",author:"Dr. Aid Al-Qarni",type:"Religious / Optimism",category:"religious",price:65,badge:"Best Seller",img:"لا تحزن .jpeg",desc:"Don't be sad! A timeless classic that combines faith, optimism, and practical wisdom. One of the most influential Islamic books of our time.",hasPDF:true},
+  {id:3,title:"Faatni Salah",author:"Islam Gamal",type:"Religious / Faith",category:"religious",price:45,badge:"Faith",img:"فاتتني صلاه .jpeg",desc:"A powerful reminder about the importance of prayer and its impact on our daily lives. An emotional journey that revives the soul."},
+  {id:4,title:"Risalat Yusuf",author:"Ibrahim Mohamed",type:"Religious / Faith",category:"religious",price:40,badge:"New",img:"رساله يوسف .jpeg",desc:"The story of Prophet Yusuf (AS) retold with deep spiritual insights and lessons for modern life. A message of patience and hope."},
+
+  // Novels & Thriller
+  {id:5,title:"Fregoli Syndrome",author:"Manal Maashi",type:"Novel / Mystery",category:"novels",price:60,badge:"Mystery",img:"متلازمه فريجولي .jpeg",desc:"A psychological thriller that explores the rare Fregoli syndrome. Who are the people around you? Can you trust your own mind?",hasPDF:true},
+  {id:6,title:"Saad Al-Dabbas",author:"Osama Al-Muslim",type:"Novel / Horror",category:"novels",price:58,badge:"Horror",img:"سعد الدباس .jpeg",desc:"A chilling horror novel that will keep you up at night. Saad Al-Dabbas is a tale of terror you won't forget."},
+  {id:7,title:"The Cat Tail Case",author:"Mirna Al-Mahdi",type:"Novel / Crime",category:"novels",price:62,badge:"Investigation",img:"ذيل القط .jpeg",desc:"Join investigator Nouh Al-Alfi in this gripping crime mystery. Every clue leads to a deeper secret."},
+  {id:8,title:"Fear",author:"Osama Al-Muslim",type:"Novel / Horror Fantasy",category:"novels",price:65,badge:"Fantasy",img:"خوف 1.jpeg",desc:"A haunting blend of horror and fantasy. What happens when fear becomes real? A journey into the darkest corners of imagination.",hasPDF:true},
+  {id:9,title:"Three Rooms to Kill",author:"Sharif Salem",type:"Novel / Crime Mystery",category:"novels",price:59,badge:"Crime",img:"ثلاث غرف للقتل .jpeg",desc:"Three rooms. Three secrets. One killer. A masterful crime thriller that keeps you guessing until the very last page."},
+
+  // Historical & Fantasy
+  {id:10,title:"Azr (Son of the Valley Wolf)",author:"Ahmed Al-Hamdan",type:"Historical Fantasy",category:"historical",price:68,badge:"Fantasy",img:"ارز .jpeg",desc:"An epic historical fantasy adventure. Follow Anz on his journey through ancient lands filled with magic, battles, and destiny."},
+  {id:11,title:"Because She's Kiara",author:"Sama Sami",type:"Novel / Drama",category:"historical",price:55,badge:"Drama",img:"لانها كيارا .jpeg",desc:"Part of 'I Am War' series. A dramatic tale of love, loss, and resilience. Kiara's story will capture your heart.",hasPDF:true},
+  {id:12,title:"They Say the Ancients",author:"Walid Al-Anazi",type:"Heritage Novel",category:"historical",price:60,badge:"Heritage",img:"يقول الاولين.jpeg",desc:"A rich heritage novel that brings to life the stories and wisdom of our ancestors. A beautiful tribute to our cultural roots."},
+
+  // Intellectual
+  {id:13,title:"Muqaddimah Ibn Khaldun (Vol.1)",author:"Ibn Khaldun",type:"Intellectual / History",category:"intellectual",price:85,badge:"Classic",img:"ابن خلدون .jpeg",desc:"The foundational work of sociology and historiography. Ibn Khaldun's masterpiece that shaped our understanding of civilizations.",hasPDF:true}
+];
+
+let cart = [];
+let wishlist = [];
+
+// ============ Render Books ============
+function renderBooks(containerId, booksList){
+  const container = document.getElementById(containerId);
+  container.innerHTML = booksList.map(b => `
+    <div class="book-card" onclick="showBookDetails(${b.id})">
+      <div class="book-cover">
+        <img src="${b.img}" alt="${b.title}" onerror="this.src='https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=500'">
+        <span class="book-badge">${b.badge}</span>
+        ${b.hasPDF ? '<span class="book-badge pdf" style="right:auto;left:14px">📄 PDF</span>' : ''}
+        <div class="quick-view">Quick View</div>
+      </div>
+      <div class="book-info">
+        <h3 class="book-title">${b.title}</h3>
+        <p class="book-author">✍️ ${b.author}</p>
+        <span class="book-type">${b.type}</span>
+        <div class="book-actions">
+          <span class="book-price">${b.price} SAR</span>
+          <button class="add-cart" onclick="event.stopPropagation();addToCart(${b.id})">Add to Cart</button>
+          <button class="heart-btn ${wishlist.includes(b.id)?'active':''}" onclick="event.stopPropagation();toggleWishlist(${b.id})">${wishlist.includes(b.id)?'♥':'♡'}</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============ Initialize ============
+renderBooks('featuredGrid', books.slice(0,4));
+renderBooks('allBooksGrid', books);
+
+// ============ Filter ============
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const filter = tab.dataset.filter;
+    const filtered = filter === 'all' ? books : books.filter(b => b.category === filter);
+    renderBooks('allBooksGrid', filtered);
+  });
+});
+
+// ============ Navigation ============
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+  if(activeLink) activeLink.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(pageId === 'checkout') updateCheckout();
+}
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => showPage(link.dataset.page));
+});
+
+// ============ Cart ============
+function addToCart(id){
+  const book = books.find(b => b.id === id);
+  const existing = cart.find(c => c.id === id);
+  if(existing) existing.qty++;
+  else cart.push({...book, qty:1});
+  updateCounts();
+  showToast(`"${book.title}" added to cart`, 'success');
+}
+function removeFromCart(id){
+  cart = cart.filter(c => c.id !== id);
+  updateCounts();
+  renderCart();
+}
+function updateCounts(){
+  document.getElementById('cartCount').textContent = cart.reduce((s,c) => s+c.qty, 0);
+  document.getElementById('wishCount').textContent = wishlist.length;
+}
+function renderCart(){
+  const body = document.getElementById('cartBody');
+  if(cart.length === 0){
+    body.innerHTML = `<div class="empty-state"><div class="icon">🛒</div><h3>Your cart is empty</h3><p>Start adding books you love!</p></div>`;
+    return;
+  }
+  const total = cart.reduce((s,c) => s + c.price*c.qty, 0);
+  body.innerHTML = cart.map(c => `
+    <div class="cart-item">
+      <img src="${c.img}" alt="${c.title}">
+      <div class="cart-item-info">
+        <h4>${c.title}</h4>
+        <p>${c.author}</p>
+        <p>Qty: ${c.qty} × <b>${c.price} SAR</b></p>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${c.id})">✕</button>
+    </div>
+  `).join('') + `<div class="cart-total"><span>Total:</span><span>${total} SAR</span></div>
+    <button class="form-btn" onclick="closeModal('cartModal');showPage('checkout')">Proceed to Checkout →</button>`;
+}
+
+// ============ Wishlist ============
+function toggleWishlist(id){
+  const book = books.find(b => b.id === id);
+  if(wishlist.includes(id)){
+    wishlist = wishlist.filter(w => w !== id);
+    showToast(`Removed from wishlist`, 'error');
+  } else {
+    wishlist.push(id);
+    showToast(`"${book.title}" added to wishlist`, 'success');
+  }
+  updateCounts();
+  renderBooks('featuredGrid', books.slice(0,4));
+  const activeFilter = document.querySelector('.filter-tab.active').dataset.filter;
+  const filtered = activeFilter === 'all' ? books : books.filter(b => b.category === activeFilter);
+  renderBooks('allBooksGrid', filtered);
+  renderWishlist();
+}
+function renderWishlist(){
+  const body = document.getElementById('wishlistBody');
+  if(wishlist.length === 0){
+    body.innerHTML = `<div class="empty-state"><div class="icon">♡</div><h3>Your wishlist is empty</h3><p>Save books you love for later!</p></div>`;
+    return;
+  }
+  const items = wishlist.map(id => books.find(b => b.id === id));
+  body.innerHTML = items.map(c => `
+    <div class="cart-item">
+      <img src="${c.img}" alt="${c.title}">
+      <div class="cart-item-info">
+        <h4>${c.title}</h4>
+        <p>${c.author}</p>
+        <p><b>${c.price} SAR</b></p>
+      </div>
+      <button class="add-cart" onclick="addToCart(${c.id})">Add to Cart</button>
+    </div>
+  `).join('');
+}
+
+// ============ Book Details ============
+let selectedFormat = 'hardcover';
+function showBookDetails(id){
+  const b = books.find(x => x.id === id);
+  selectedFormat = 'hardcover';
+  document.getElementById('bookDetailsBody').innerHTML = `
+    <div class="book-details">
+      <div class="book-details-img"><img src="${b.img}" alt="${b.title}"></div>
+      <div class="book-details-info">
+        <h2>${b.title}</h2>
+        <p class="author">✍️ by ${b.author}</p>
+        <span class="type-badge">${b.type}</span>
+        <p class="desc">${b.desc}</p>
+        <div class="price-big" id="bookPrice">${b.price} SAR</div>
+        <p style="margin-bottom:10px;font-weight:600">Choose Format:</p>
+        <div class="format-options">
+          <div class="format-opt active" onclick="selectFormat(this,'hardcover',${b.price})">
+            📕 Hardcover<small>Physical copy</small>
+          </div>
+          <div class="format-opt" onclick="selectFormat(this,'paperback',${b.price-10})">
+            📗 Paperback<small>Physical copy</small>
+          </div>
+          ${b.hasPDF ? `<div class="format-opt" onclick="selectFormat(this,'pdf',${b.price-20})">
+            📄 PDF Digital<small>Instant download</small>
+          </div>` : ''}
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="addToCart(${b.id});closeModal('bookModal')">🛒 Add to Cart</button>
+          <button class="btn btn-dark" onclick="toggleWishlist(${b.id})">♡ Wishlist</button>
+        </div>
+      </div>
+    </div>
+  `;
+  openModal('bookModal');
+}
+function selectFormat(el, format, price){
+  document.querySelectorAll('.format-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  selectedFormat = format;
+  document.getElementById('bookPrice').textContent = price + ' SAR';
+}
+
+// ============ Search ============
+function searchBooks(){
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const results = books.filter(b => b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q));
+  const container = document.getElementById('searchResults');
+  if(q.length === 0){container.innerHTML = '';return;}
+  if(results.length === 0){container.innerHTML = '<p style="text-align:center;color:var(--gray);padding:20px">No books found</p>';return;}
+  container.innerHTML = results.map(b => `
+    <div class="search-result" onclick="closeModal('searchModal');showBookDetails(${b.id})">
+      <img src="${b.img}" alt="${b.title}">
+      <div>
+        <h4>${b.title}</h4>
+        <p>by ${b.author} · ${b.price} SAR</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============ Checkout ============
+function updateCheckout(){
+  const container = document.getElementById('checkoutItems');
+  if(cart.length === 0){
+    container.innerHTML = '<p style="color:var(--gray);text-align:center;padding:20px">Your cart is empty. Add some books first!</p>';
+    document.getElementById('subTotal').textContent = '0 SAR';
+    document.getElementById('taxAmount').textContent = '0 SAR';
+    document.getElementById('grandTotal').textContent = '0 SAR';
+    return;
+  }
+  container.innerHTML = cart.map(c => `
+    <div class="summary-item"><span>${c.title} × ${c.qty}</span><span>${c.price*c.qty} SAR</span></div>
+  `).join('');
+  const sub = cart.reduce((s,c) => s + c.price*c.qty, 0);
+  const tax = Math.round(sub * 0.15);
+  const total = sub + 25 + tax;
+  document.getElementById('subTotal').textContent = sub + ' SAR';
+  document.getElementById('taxAmount').textContent = tax + ' SAR';
+  document.getElementById('grandTotal').textContent = total + ' SAR';
+}
+function selectPayment(el){
+  document.querySelectorAll('.payment-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+function placeOrder(){
+  if(cart.length === 0){showToast('Your cart is empty!', 'error');return;}
+  showToast('🎉 Order placed successfully! Thank you.', 'success');
+  cart = [];
+  updateCounts();
+  setTimeout(() => showPage('home'), 1500);
+}
+
+// ============ Auth ============
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+}
+function handleLogin(){showToast('✅ Welcome back!', 'success');closeModal('authModal');}
+function handleRegister(){showToast('✅ Account created successfully!', 'success');closeModal('authModal');}
+
+// ============ Modals ============
+function openModal(id){
+  document.getElementById(id).classList.add('active');
+  if(id === 'cartModal') renderCart();
+  if(id === 'wishlistModal') renderWishlist();
+  if(id === 'checkout') updateCheckout();
+}
+function closeModal(id){document.getElementById(id).classList.remove('active');}
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => {if(e.target === m) m.classList.remove('active');});
+});
+
+// ============ Toast ============
+function showToast(msg, type='success'){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ============ Mobile Menu ============
+function toggleMobileMenu(){
+  const menu = document.querySelector('.menu');
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  menu.style.flexDirection = 'column';
+  menu.style.position = 'absolute';
+  menu.style.top = '80px';
+  menu.style.right = '20px';
+  menu.style.background = '#fff';
+  menu.style.padding = '20px';
+  menu.style.borderRadius = '16px';
+  menu.style.boxShadow = 'var(--shadow)';
+}
+</script>
+</body>
+</html>
